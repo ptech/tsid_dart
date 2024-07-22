@@ -745,6 +745,7 @@ class Settings {
   static final String node = "tsidcreator.node";
   static final String nodeCount = "tsidcreator.node.count";
   static final Map<String, String> mockSettings = <String, String>{};
+
   static BigInt? getNode() {
     return getPropertyAsInt(node);
   }
