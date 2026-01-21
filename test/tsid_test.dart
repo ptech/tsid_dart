@@ -18,15 +18,11 @@ void main() {
     test('testFromBytes', () {
       for (int i = 0; i < loopMax; i++) {
         final int number0 = Random().nextInt(maxLong);
-
         final ByteData buffer = ByteData(8);
-
         buffer.setInt64(0, number0);
+        Uint8List bytes = buffer.buffer.asUint8List();
 
-        final Uint8List bytes = buffer.buffer.asUint8List();
-
-        final int number1 = Tsid.fromBytes(bytes).toInt();
-
+        final int number1 = Tsid.fromBytes(bytes).toLong();
         assert(number0 == number1);
       }
     });
@@ -49,7 +45,7 @@ void main() {
       for (int i = 0; i < loopMax; i++) {
         final int number0 = Random().nextInt(maxLong);
         final String string0 = toString(number0);
-        final int number1 = Tsid.fromString(string0).toInt();
+        final int number1 = Tsid.fromString(string0).toLong();
         assert(number0 == number1);
       }
     });
@@ -57,11 +53,8 @@ void main() {
     test('testToString', () {
       for (int i = 0; i < loopMax; i++) {
         final int number = Random().nextInt(maxLong);
-
         final String string0 = toString(number);
-
-        final String string1 = Tsid.fromNumber(BigInt.from(number)).toString();
-
+        final String string1 = Tsid.fromNumber(number).toString();
         assert(string0 == string1);
       }
     });
@@ -70,8 +63,8 @@ void main() {
       test('equal number', () {
         for (int i = 0; i < loopMax; i++) {
           final int number = Random().nextInt(maxLong);
-          final Tsid tsid1 = Tsid.fromNumber(BigInt.from(number));
-          final Tsid tsid2 = Tsid.fromNumber(BigInt.from(number));
+          final Tsid tsid1 = Tsid.fromNumber(number);
+          final Tsid tsid2 = Tsid.fromNumber(number);
           assert(tsid1 == tsid2);
         }
       });
@@ -80,8 +73,8 @@ void main() {
         for (int i = 0; i < loopMax; i++) {
           final int number1 = Random().nextInt(maxLong);
           final int number2 = Random().nextInt(maxLong);
-          final Tsid tsid1 = Tsid.fromNumber(BigInt.from(number1));
-          final Tsid tsid2 = Tsid.fromNumber(BigInt.from(number2));
+          final Tsid tsid1 = Tsid.fromNumber(number1);
+          final Tsid tsid2 = Tsid.fromNumber(number2);
           assert(tsid1 != tsid2);
         }
       });
